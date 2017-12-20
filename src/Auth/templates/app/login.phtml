@@ -1,0 +1,17 @@
+Formulaire d'identification
+<form action="/login" method="post">
+    <?php
+    if (isset($errors)) {
+        echo '<div class="alert alert-warning"><ul>';
+        foreach ($errors as $error) {
+            echo '<li>' . $error . '</li>';
+        }
+
+        echo '</ul></div>';
+    }
+
+    ?>
+    <input type="text" name="username" placeholder="username" />
+    <input type="password" name="password" placeholder="password" />
+    <button type="submit">Login</button>
+</form>
