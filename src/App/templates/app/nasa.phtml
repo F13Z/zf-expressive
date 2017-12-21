@@ -1,4 +1,8 @@
-L'image du jour
+<ol class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li class="active">L'image du jour</li>
+</ol>
+
 <?php
     if (isset($error)) {
         echo '<div class="alert alert-warning">
@@ -7,6 +11,28 @@ L'image du jour
             </div>';
     } else {
 ?>
+        <nav aria-label="Page navigation">
+            <ul class="pager">
+                <?php
+                if (!empty($linkPrevious)) {
+                    echo '<li class="previous">
+                        <a href="/nasa' . $linkPrevious .'">
+                            <span aria-hidden="true">&larr;</span> Jour précédent
+                        </a>
+                    </li>';
+                }
+
+                if (!empty($linkNext)) {
+                    echo '<li class="next">
+                        <a href="/nasa' . $linkNext .'">
+                            Jour suivant
+                            <span aria-hidden="true">&rarr;</span></a>
+                        </a>
+                    </li>';
+                }
+                ?>
+            </ul>
+        </nav>
         <h1><?php echo $pictures['title']; ?></h1>
         <?php
         switch ($pictures['media_type']) {
@@ -29,6 +55,27 @@ L'image du jour
             <p><?php echo $pictures['explanation']; ?></p>
             <footer><?php echo $pictures['date']; ?></footer>
         </blockquote>
+
+        <br />
+        <form class="form-inline" id="form-nasa-date">
+            <div class="form-group">
+                <label for="date">Date</label>
+                <input type="date" name="date" class="form-control" id="date" placeholder="YYYY-MM-DD"<?php
+                if (! empty($date)) {
+                    echo ' value="' . $date . '"';
+                }
+                ?>>
+            </div>
+            <button type="submit" class="btn btn-default">Voir</button>
+        </form>
+        <script>
+            var form = document.querySelector('#form-nasa-date');
+            var date = form.querySelector('input[name="date"]');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                window.location.href = '/nasa/date/' + date.value;
+            });
+        </script>
 <?php
     }
 ?>

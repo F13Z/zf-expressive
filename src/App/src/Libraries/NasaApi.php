@@ -3,44 +3,98 @@
 namespace App\Libraries;
 
 use GuzzleHttp\Client;
+use Zend\Expressive\Exception\InvalidArgumentException;
 
 class NasaApi
 {
+    /**
+     * @var string
+     */
     private $endpoint = 'https://api.nasa.gov/planetary/apod';
-    private $timeZone = 'Europe/Paris';
-    private $key = 'DEMO_KEY'; // https://api.nasa.gov/index.html#live_example
+
+    /**
+     * @link https://api.nasa.gov/index.html#live_example
+     * @var string
+     */
+    private $key = 'DEMO_KEY';
+
+    /**
+     * @var \DateTime
+     */
+    private $dateTime;
+
+    /**
+     * @var int
+     */
+    private $interval;
+
+    /**
+     * @var string
+     */
+    private $order = '-';
 
     public function __construct(string $key)
     {
         $this->key = $key;
+        $this->dateTime = $this->getDefaultDate();
     }
 
-    public function get()
+    /**
+     * Retourne la date par défaut
+     * @return \DateTime
+     */
+    private function getDefaultDate(): \DateTime
     {
-        $date = $this->getDateTime();
-
-        $client = new Client();
-        $response = $client->request('GET', $this->endpoint, [
-            'query' => [
-                'api_key'      => $this->key,
-                'date'         => $date->format('Y-m-d'),
-            ]
-        ]);
-
-        return $response;
-    }
-
-    public function setTimeZone(string $timezone)
-    {
-        $this->timeZone = $timezone;
-    }
-
-    private function getDateTime()
-    {
-        $timezone = new \DateTimeZone($this->timeZone);
         $dateTime = new \DateTime('now');
-        $dateTime->setTimezone($timezone);
         return $dateTime;
     }
 
+    /**
+     * @return mixed|\Psr\Http\Message\ResponseInterface
+     * @throws \LogicException
+     */
+    public function get()
+    {
+        $client = new Client();
+        return $client->request('GET', $this->endpoint, [
+            'query' => [
+                'api_key'      => $this->key,
+                'date'         => $this->getFinalDate(),
+            ]
+        ]);
+    }
+
+    /**
+     * Retourne la date finale, avec la timeZone et l'interval
+     * @return string
+     */
+    public function getFinalDate(): string
+    {
+        return $this->getFinalDateTime()->format('Y-m-d');
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getFinalDateTime(): \DateTime
+    {
+        if ($this->interval) {
+            $this->dateTime->modify('+' . $this->interval . 'days');
+        }
+        return $this->dateTime;
+    }
+
+    public function setDate(string $date)
+    {
+        if (!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $date)) {
+            throw new InvalidArgumentException('La date doit être au format YYYY-MM-AA');
+        }
+        $dateTime = new \DateTime($date);
+        $this->dateTime = $dateTime;
+    }
+
+    public function setInterval(int $interval)
+    {
+        $this->interval = $interval;
+    }
 }

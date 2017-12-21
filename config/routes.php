@@ -33,7 +33,15 @@ $app->get('/', App\Action\HomePageAction::class, 'home');
 $app->get('/api/ping', App\Action\PingAction::class, 'api.ping');
 $app->get('/test', App\Action\TestAction::class, 'test');
 
-$app->get('/nasa', App\Action\NasaAction::class, 'nasa');
+$app->get('/nasa[/date/:date]', App\Action\NasaAction::class, 'nasa')
+    ->setOptions([
+        'defaults' => [
+            'date' => '',
+        ],
+        'constraints' => [
+            'date' => '[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])',
+        ]
+    ]);
 
 // Identification
 $app->route('/login', Auth\Action\LoginAction::class, ['GET', 'POST'], 'login');
