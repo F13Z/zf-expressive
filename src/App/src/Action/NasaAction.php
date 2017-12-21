@@ -48,15 +48,16 @@ class NasaAction implements MiddlewareInterface
         // Link
         $dateCurrent = new \DateTime('now');
         $dateApi = $this->nasaApi->getFinalDateTime();
+        $dateFormat = $this->nasaApi->getDateFormat();
 
-        if ($dateCurrent->format('Y-m-d') === $dateApi->format('Y-m-d')) {
+        if ($dateCurrent->format($dateFormat) === $dateApi->format($dateFormat)) {
             $dateApi->modify('-1 day');
-            $datas['linkPrevious'] = '/date/' . $dateApi->format('Y-m-d');
+            $datas['linkPrevious'] = '/date/' . $dateApi->format($dateFormat);
         } else {
             $dateApi->modify('-1 day');
-            $datas['linkPrevious'] = '/date/' . $dateApi->format('Y-m-d');
+            $datas['linkPrevious'] = '/date/' . $dateApi->format($dateFormat);
             $dateApi->modify('+2 day');
-            $datas['linkNext'] =  '/date/' . $dateApi->format('Y-m-d');
+            $datas['linkNext'] =  '/date/' . $dateApi->format($dateFormat);
         }
 
 

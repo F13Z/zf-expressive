@@ -28,6 +28,8 @@ class NasaApi
      */
     private $interval;
 
+    private $dateFormat = 'Y-m-d';
+
     /**
      * @var string
      */
@@ -65,15 +67,16 @@ class NasaApi
     }
 
     /**
-     * Retourne la date finale, avec la timeZone et l'interval
+     * Retourne la date finale
      * @return string
      */
     public function getFinalDate(): string
     {
-        return $this->getFinalDateTime()->format('Y-m-d');
+        return $this->getFinalDateTime()->format($this->dateFormat);
     }
 
     /**
+     * Retourne l'objet \DateTime final
      * @return \DateTime
      */
     public function getFinalDateTime(): \DateTime
@@ -96,5 +99,13 @@ class NasaApi
     public function setInterval(int $interval)
     {
         $this->interval = $interval;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDateFormat(): string
+    {
+        return $this->dateFormat;
     }
 }
