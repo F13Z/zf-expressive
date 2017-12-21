@@ -1,12 +1,13 @@
 <?php
 
-namespace Auth\Action;
+namespace Auth\Factory;
 
+use Auth\Action\TestAction;
 use Psr\Container\ContainerInterface;
 use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
-class TestFactory
+class TestActionFactory
 {
     public function __invoke(ContainerInterface $container)
     {

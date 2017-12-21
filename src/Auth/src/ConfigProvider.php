@@ -38,10 +38,10 @@ class ConfigProvider
             'invokables' => [
             ],
             'factories'  => [
-                Action\AuthAction::class => Action\AuthActionFactory::class,
-                Action\LoginAction::class => Action\LoginActionFactory::class,
-                Action\LogoutAction::class => Action\LogoutAction::class,
-                Action\TestAction::class => Action\TestFactory::class,
+                Action\AuthAction::class => Factory\AuthActionFactory::class,
+                Action\LoginAction::class => Factory\LoginActionFactory::class,
+                Action\LogoutAction::class => Factory\LogoutActionFactory::class,
+                Action\TestAction::class => Factory\TestActionFactory::class,
                 AuthenticationService::class => AuthenticationServiceFactory::class,
                 MyAuthAdapter::class => MyAuthAdapterFactory::class,
             ],

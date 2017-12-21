@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Action;
+namespace App\Factory;
 
+use App\Action\AdminAction;
 use Interop\Container\ContainerInterface;
 use Zend\Db\Adapter\Adapter;
 use Zend\Expressive\Template\TemplateRendererInterface;

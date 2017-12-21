@@ -28,16 +28,21 @@
 
 /** @var \Zend\Expressive\Application $app */
 
+// Public
 $app->get('/', App\Action\HomePageAction::class, 'home');
 $app->get('/api/ping', App\Action\PingAction::class, 'api.ping');
 $app->get('/test', App\Action\TestAction::class, 'test');
 
+$app->get('/nasa', App\Action\NasaAction::class, 'nasa');
+
+// Identification
 $app->route('/login', Auth\Action\LoginAction::class, ['GET', 'POST'], 'login');
 $app->get('/logout', Auth\Action\LogoutAction::class, 'logout');
 
-
+// Admin
 $app->get('/admin', [
     Auth\Action\AuthAction::class,
     App\Action\AdminAction::class,
 ], 'admin');
 $app->get('/admin/test',Auth\Action\TestAction::class, 'admin.test');
+

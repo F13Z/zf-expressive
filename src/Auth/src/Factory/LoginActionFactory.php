@@ -1,7 +1,8 @@
 <?php
 
-namespace Auth\Action;
+namespace Auth\Factory;
 
+use Auth\Action\LoginAction;
 use Auth\MyAuthAdapter;
 use Interop\Container\ContainerInterface;
 use Zend\Authentication\AuthenticationService;

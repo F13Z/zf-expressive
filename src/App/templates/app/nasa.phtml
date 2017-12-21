@@ -1,0 +1,34 @@
+L'image du jour
+<?php
+    if (isset($error)) {
+        echo '<div class="alert alert-warning">
+            Erreur ' . $error['code'] . ' :
+            ' . $error['message'] . '
+            </div>';
+    } else {
+?>
+        <h1><?php echo $pictures['title']; ?></h1>
+        <?php
+        switch ($pictures['media_type']) {
+            case 'image':
+                echo '<img src="' . $pictures['url'] . '" class="img-responsive" />';
+                break;
+
+            case 'video':
+                echo '<div class="embed-responsive embed-responsive-16by9">
+              <iframe class="embed-responsive-item" src="' . $pictures['url'] . '"></iframe>
+            </div>';
+                break;
+
+            default:
+                echo 'Media inconnu :(';
+        }
+        ?>
+        <br/>
+        <blockquote>
+            <p><?php echo $pictures['explanation']; ?></p>
+            <footer><?php echo $pictures['date']; ?></footer>
+        </blockquote>
+<?php
+    }
+?>

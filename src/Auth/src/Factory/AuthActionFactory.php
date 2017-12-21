@@ -1,10 +1,10 @@
 <?php
 
-namespace Auth\Action;
+namespace Auth\Factory;
 
+use Auth\Action\AuthAction;
 use Interop\Container\ContainerInterface;
 use Zend\Authentication\AuthenticationService;
-use Exception;
 use Zend\Db\Adapter\Adapter;
 
 class AuthActionFactory

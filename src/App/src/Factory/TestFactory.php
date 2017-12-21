@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Action;
+namespace App\Factory;
 
+use App\Action\TestAction;
 use Psr\Container\ContainerInterface;
 use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;

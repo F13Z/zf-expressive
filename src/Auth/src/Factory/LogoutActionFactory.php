@@ -1,7 +1,8 @@
 <?php
 
-namespace Auth\Action;
+namespace Auth\Factory;
 
+use Auth\Action\LogoutAction;
 use Psr\Container\ContainerInterface;
 use Zend\Authentication\AuthenticationService;
 

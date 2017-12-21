@@ -37,10 +37,13 @@ class ConfigProvider
                 Action\PingAction::class => Action\PingAction::class,
             ],
             'factories'  => [
-                Action\AdminAction::class => Action\AdminFactory::class,
-                Action\HomePageAction::class => Action\HomePageFactory::class,
-                Action\TestAction::class => Action\TestFactory::class,
+                Action\AdminAction::class => Factory\AdminFactory::class,
+                Action\HomePageAction::class => Factory\HomePageFactory::class,
+                Action\TestAction::class => Factory\TestFactory::class,
+                Action\NasaAction::class => Factory\NasaFactory::class,
 
+                // API NASA
+                Libraries\NasaApi::class => Factory\NasaApiFactory::class,
             ],
         ];
     }

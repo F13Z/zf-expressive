@@ -24,13 +24,13 @@ class AuthAction implements ServerMiddlewareInterface
     public function process(ServerRequestInterface $request, DelegateInterface $delegate)
     {
         if (!$this->auth->hasIdentity()) {
-            return new RedirectResponse('/login?error=session');
+            return new RedirectResponse('/login');
         }
 
         $identity = $this->auth->getIdentity();
 
         if ($this->isExist($identity) === 0) {
-            return new RedirectResponse('/login?error=bad_id');
+            return new RedirectResponse('/login');
         }
 
         return $delegate->process($request->withAttribute(self::class, $identity));
