@@ -3,7 +3,7 @@
 namespace AppTest\Action;
 
 use App\Action\HomePageAction;
-use App\Action\HomePageFactory;
+use App\Factory\HomePageFactory;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Zend\Expressive\Router\RouterInterface;

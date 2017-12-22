@@ -3,6 +3,7 @@
 namespace App\Libraries;
 
 use GuzzleHttp\Client;
+use Psr\Http\Message\ResponseInterface;
 use Zend\Expressive\Exception\InvalidArgumentException;
 
 class NasaApi
@@ -28,12 +29,10 @@ class NasaApi
      */
     private $interval;
 
-    private $dateFormat = 'Y-m-d';
-
     /**
      * @var string
      */
-    private $order = '-';
+    private $dateFormat = 'Y-m-d';
 
     public function __construct(string $key)
     {
@@ -55,7 +54,7 @@ class NasaApi
      * @return mixed|\Psr\Http\Message\ResponseInterface
      * @throws \LogicException
      */
-    public function get()
+    public function get(): ResponseInterface
     {
         $client = new Client();
         return $client->request('GET', $this->endpoint, [
@@ -87,7 +86,7 @@ class NasaApi
         return $this->dateTime;
     }
 
-    public function setDate(string $date)
+    public function setDate(string $date): void
     {
         if (!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $date)) {
             throw new InvalidArgumentException('La date doit être au format YYYY-MM-AA');
@@ -96,7 +95,11 @@ class NasaApi
         $this->dateTime = $dateTime;
     }
 
-    public function setInterval(int $interval)
+    /**
+     * Ajoute X jour(s) à la date courante
+     * @param int $interval
+     */
+    public function setInterval(int $interval): void
     {
         $this->interval = $interval;
     }
